@@ -96,16 +96,16 @@ WHERE
     FROM spotify.`spotify-2023`
     WHERE released_year >= 2013; */ 
     
-    SELECT released_year,
+SELECT released_year,
     avg(`danceability_%`) AS avg_danceability,
     avg(`energy_%`) AS avg_energy
-    FROM (
-       SELECT track_name, released_year, `danceability_%`, `energy_%`
+FROM (
+	SELECT track_name, released_year, `danceability_%`, `energy_%`
     FROM spotify.`spotify-2023`
     WHERE released_year >= 2013
     )  AS past_decade
-    GROUP BY released_year
-    ORDER BY released_year;
+GROUP BY released_year
+ORDER BY released_year;
     
     
     -- 10. Which songs are consistently popular across Spotify, Apple Music, and Shazam, and what insights can be drawn from their cross-platform presence?
