@@ -1,41 +1,43 @@
+
+
 SELECT * FROM spotify.`spotify-2023`;
 
--- What is the average number of streams across all songs?
+--  1. What is the average number of streams across all songs?
 SELECT avg(streams) as avg_streams
 FROM spotify.`spotify-2023`;
 
--- What is the average danceability of the top 12 most streamed songs?
+-- 2. What is the average danceability of the top 12 most streamed songs?
 SELECT avg(`danceability_%`) as avg_danceability
 FROM spotify.`spotify-2023`
 order by streams desc
 limit 12;
 
--- What are the top 10 most-streamed songs
+-- 3. What are the top 10 most-streamed songs
 SELECT streams, `released_year`, track_name
 FROM spotify.`spotify-2023`
 ORDER BY streams desc
 limit 10;
 
--- How many songs were released in each year
+-- 4. How many songs were released in each year
 SELECT released_year, COUNT(*) AS song_count
 FROM spotify.`spotify-2023`
 group by released_year
 ORDER BY released_year desc;
 
--- Who are the top 10 artists with the highest average streaming statistics
+-- 5. Who are the top 10 artists with the highest average streaming statistics
 SELECT `artist(s)_name`, AVG(streams) AS avg_streaming
 FROM spotify.`spotify-2023`
 GROUP BY `artist(s)_name`
 ORDER BY avg_streaming DESC
 limit 10;
 
--- What is the average stream count per month across all songs in the dataset?
+-- 6. What is the average stream count per month across all songs in the dataset?
 SELECT CONCAT(released_year, '-' , released_month) AS release_month, AVG(streams) AS avg_streaming
 FROM spotify.`spotify-2023`
 GROUP BY release_month
 ORDER BY release_month;
 
--- Which songs appear in Spotify charts, and what is their average ranking?
+-- 7. Which songs appear in Spotify charts, and what is their average ranking?
 -- returns a list of songs that appear in spotify charts
 /*SELECT track_name, `artist(s)_name`, in_spotify_charts AS chart_rank
 FROM spotify.`spotify-2023`
@@ -50,7 +52,7 @@ WHERE in_spotify_charts <> 0
 ORDER BY in_spotify_charts
 ) AS chart_songs;
 
--- How many songs are ranked on Apple Music, spotify, Deezer, and Shazam charts, respectively?
+-- 8. How many songs are ranked on Apple Music, spotify, Deezer, and Shazam charts, respectively?
 
 SELECT
     'Apple Music' AS platform_type,
@@ -87,9 +89,9 @@ WHERE
     in_shazam_charts <> 0;
     
     
-    -- How have the average danceability and energy % of the most popular songs on Spotify changed over the past decade, and are there any significant shifts in music preferences?
+    -- 9. How have the average danceability and energy % of the most popular songs on Spotify changed over the past decade, and are there any significant shifts in music preferences?
    
-   -- dataset filtered tp include only songs from past decade. 
+   -- dataset filtered to include only songs from past decade. 
     /*SELECT track_name, released_year, `danceability_%`, `energy_%`
     FROM spotify.`spotify-2023`
     WHERE released_year >= 2013; */ 
@@ -106,7 +108,7 @@ WHERE
     ORDER BY released_year;
     
     
-    -- Which songs are consistently popular across Spotify, Apple Music, and Shazam, and what insights can be drawn from their cross-platform presence?
+    -- 10. Which songs are consistently popular across Spotify, Apple Music, and Shazam, and what insights can be drawn from their cross-platform presence?
 /*LECT
     track_name,
     `artist(s)_name`
